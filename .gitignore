@@ -1,0 +1,15 @@
+# macOS / Python
+.DS_Store
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Generated outputs (large, reproducible from code/)
+scratch/
+*.mp4
+*.gif
+*.npz
+
+# Third-party papers and teammates' drafts: keep local
+papers/
+drafts/
