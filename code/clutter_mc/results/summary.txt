@@ -1,0 +1,75 @@
+====================================================================================================
+case                                       n  ovt         <s0> dB [95% CI]   Bragg            m2 [95% CI]   nu_K  P-trust
+full     U= 5.0 choppy HH 60°           1527    0   -29.73 [-29.98,-29.51]  -32.13   2.09 [ 2.00, 2.20]   22.0  1.2e-02
+full     U= 5.0 choppy HH 80°           1527    0   -44.84 [-45.12,-44.55]  -52.18   2.51 [ 2.28, 2.75]    3.9  1.1e-02
+full     U= 5.0 choppy VV 60°           1527    0   -14.15 [-14.39,-13.92]  -15.23   2.11 [ 1.97, 2.29]   17.6  1.3e-02
+full     U= 5.0 choppy VV 80°           1527    0   -15.57 [-15.80,-15.37]  -15.88   2.03 [ 1.94, 2.12]   63.1  1.2e-02
+full     U= 5.0 gauss  HH 60°           1527    0   -30.37 [-30.60,-30.16]  -32.13   1.99 [ 1.89, 2.11]    inf  1.4e-02
+full     U= 5.0 gauss  HH 80°           1527    0   -46.44 [-46.70,-46.17]  -52.18   2.42 [ 2.17, 2.83]    4.7  1.6e-02
+full     U= 5.0 gauss  VV 60°           1527    0   -14.29 [-14.52,-14.09]  -15.23   2.00 [ 1.89, 2.13]  429.0  1.2e-02
+full     U= 5.0 gauss  VV 80°           1527    0   -15.99 [-16.21,-15.76]  -15.88   2.05 [ 1.93, 2.19]   36.9  1.2e-02
+full     U=10.0 choppy HH 60°           2304    0   -29.12 [-29.32,-28.92]  -32.13   2.31 [ 2.18, 2.46]    6.4  8.2e-03
+full     U=10.0 choppy HH 80°           2304    0   -42.33 [-42.61,-42.04]  -52.18   3.60 [ 2.59, 5.24]    1.2  7.4e-03
+full     U=10.0 choppy VV 60°           2304    0   -13.94 [-14.12,-13.76]  -15.23   2.07 [ 1.98, 2.16]   28.5  7.8e-03
+full     U=10.0 choppy VV 80°           2304    0   -15.26 [-15.45,-15.09]  -15.88   2.11 [ 2.02, 2.21]   18.3  9.5e-03
+full     U=10.0 gauss  HH 60°           2304    0   -29.87 [-30.05,-29.70]  -32.13   2.13 [ 2.03, 2.24]   15.7  8.2e-03
+full     U=10.0 gauss  HH 80°           2304    0   -43.89 [-44.15,-43.65]  -52.18   2.98 [ 2.48, 3.69]    2.0  6.9e-03
+full     U=10.0 gauss  VV 60°           2304    0   -13.96 [-14.15,-13.78]  -15.23   2.05 [ 1.98, 2.13]   36.7  8.7e-03
+full     U=10.0 gauss  VV 80°           2304    0   -15.72 [-15.90,-15.54]  -15.88   2.02 [ 1.93, 2.11]  113.0  8.2e-03
+full     U=15.0 choppy HH 60°           1510    0   -28.63 [-28.93,-28.35]  -32.13   2.67 [ 2.32, 3.03]    3.0  1.3e-02
+full     U=15.0 choppy HH 80°           1510    0   -41.10 [-41.42,-40.81]  -52.18   2.95 [ 2.64, 3.31]    2.1  1.1e-02
+full     U=15.0 choppy VV 60°           1510    0   -13.87 [-14.10,-13.65]  -15.23   2.02 [ 1.93, 2.11]   85.9  1.4e-02
+full     U=15.0 choppy VV 80°           1510    0   -15.46 [-15.69,-15.23]  -15.88   2.17 [ 2.05, 2.30]   11.7  1.1e-02
+full     U=15.0 gauss  HH 60°           1510    0   -29.55 [-29.79,-29.30]  -32.13   2.21 [ 2.06, 2.37]    9.5  1.2e-02
+full     U=15.0 gauss  HH 80°           1510    0   -42.89 [-43.21,-42.57]  -52.18   3.04 [ 2.74, 3.36]    1.9  1.2e-02
+full     U=15.0 gauss  VV 60°           1510    0   -13.81 [-14.04,-13.58]  -15.23   2.12 [ 1.98, 2.29]   16.4  1.1e-02
+full     U=15.0 gauss  VV 80°           1510    0   -15.78 [-16.02,-15.54]  -15.88   2.11 [ 1.98, 2.27]   17.9  1.3e-02
+periodic U=15.0 gauss  HH 60°            752    0   -29.30 [-29.65,-28.95]  -32.13   2.28 [ 2.06, 2.54]    7.3  2.4e-02
+periodic U=15.0 gauss  HH 80°            752    0   -43.20 [-43.60,-42.82]  -52.18   2.59 [ 2.36, 2.82]    3.4  2.1e-02
+periodic U=15.0 gauss  VV 60°            752    0   -13.83 [-14.17,-13.53]  -15.23   2.02 [ 1.89, 2.17]   80.2  2.3e-02
+periodic U=15.0 gauss  VV 80°            752    0   -16.06 [-16.41,-15.69]  -15.88   2.41 [ 2.13, 2.75]    4.9  2.3e-02
+
+PAIRED choppy vs Gaussian (same seeds), 95% bootstrap CIs
+case                             n               d<s0> dB                   d m2           ratio P(>5<s>)          ratio P(>10<s>)
+U= 5.0 HH 60°                 1527   +0.64 [ +0.35, +0.94]   +0.10 [ -0.05, +0.25]   +1.56 [ +0.69, +3.84]    +nan [  +nan,  +nan]
+U= 5.0 HH 80°                 1527   +1.60 [ +1.25, +1.92]   +0.09 [ -0.33, +0.45]   +1.29 [ +0.74, +2.20]   +4.00 [ +0.25, +7.00]
+U= 5.0 VV 60°                 1527   +0.15 [ -0.17, +0.46]   +0.11 [ -0.08, +0.32]   +1.40 [ +0.67, +3.40]    +nan [  +nan,  +nan]
+U= 5.0 VV 80°                 1527   +0.41 [ +0.09, +0.73]   -0.02 [ -0.17, +0.13]   +1.20 [ +0.43, +2.22]    +nan [ +0.00, +0.00]
+U=10.0 HH 60°                 2304   +0.76 [ +0.50, +1.02]   +0.18 [ +0.01, +0.36]   +1.75 [ +1.08, +2.71]   +2.00 [ +0.00, +5.00]
+U=10.0 HH 80°                 2304   +1.56 [ +1.22, +1.90]   +0.62 [ -0.72, +2.45]   +1.43 [ +1.02, +1.93]   +1.00 [ +0.27, +5.00]
+U=10.0 VV 60°                 2304   +0.02 [ -0.24, +0.29]   +0.02 [ -0.10, +0.14]   +1.10 [ +0.65, +2.07]    +nan [  +nan,  +nan]
+U=10.0 VV 80°                 2304   +0.46 [ +0.22, +0.70]   +0.09 [ -0.04, +0.23]   +1.35 [ +0.78, +2.58]    +nan [  +nan,  +nan]
+U=15.0 HH 60°                 1510   +0.91 [ +0.57, +1.26]   +0.46 [ +0.07, +0.86]   +1.24 [ +0.74, +2.27]   +4.00 [ +0.33, +7.00]
+U=15.0 HH 80°                 1510   +1.79 [ +1.42, +2.15]   -0.09 [ -0.50, +0.33]   +1.08 [ +0.82, +1.52]   +0.60 [ +0.00, +2.50]
+U=15.0 VV 60°                 1510   -0.06 [ -0.38, +0.24]   -0.10 [ -0.29, +0.08]   +0.71 [ +0.31, +1.67]   +0.00 [ +0.00, +0.00]
+U=15.0 VV 80°                 1510   +0.32 [ +0.00, +0.65]   +0.06 [ -0.14, +0.24]   +1.31 [ +0.72, +2.67]   +0.00 [ +0.00, +0.00]
+
+DIAGNOSTICS (per case: energy |ratio/pred - 1| median & max, MOMI it3 vs it2 max |dB|, edge |J| max, min dx/du, window h_rms, slope_rms, skewness)
+full     U= 5.0 choppy HH 60°: energy>2% in 0/1527 (m2 without them 2.09) | domain overturned in 0/1527 | energy 2.3e-05/7.4e-04 | MOMI 3.8e-03 dB (99%: 8.3e-04) | edge 3.6e-03 | min dx/du win 0.20 (dom 0.10) | h_rms 0.131 m (nominal 0.133) | slope 0.154 (nominal 0.152) | skew +0.03
+full     U= 5.0 choppy HH 80°: energy>2% in 0/1527 (m2 without them 2.51) | domain overturned in 0/1527 | energy 4.4e-04/3.2e-03 | MOMI 3.4e-02 dB (99%: 3.1e-03) | edge 1.8e-02 | min dx/du win 0.20 (dom 0.10) | h_rms 0.131 m (nominal 0.133) | slope 0.154 (nominal 0.152) | skew +0.03
+full     U= 5.0 choppy VV 60°: energy>2% in 0/1527 (m2 without them 2.11) | domain overturned in 0/1527 | energy 7.0e-04/6.1e-03 | MOMI 4.8e-03 dB (99%: 1.8e-03) | edge 1.7e-01 | min dx/du win 0.20 (dom 0.10) | h_rms 0.131 m (nominal 0.133) | slope 0.154 (nominal 0.152) | skew +0.03
+full     U= 5.0 choppy VV 80°: energy>2% in 2/1527 (m2 without them 2.03) | domain overturned in 0/1527 | energy 3.3e-03/2.3e-02 | MOMI 2.5e-02 dB (99%: 3.3e-03) | edge 2.0e-01 | min dx/du win 0.20 (dom 0.10) | h_rms 0.131 m (nominal 0.133) | slope 0.154 (nominal 0.152) | skew +0.03
+full     U= 5.0 gauss  HH 60°: energy>2% in 0/1527 (m2 without them 1.99) | domain overturned in 0/1527 | energy 1.2e-05/1.1e-04 | MOMI 2.0e-03 dB (99%: 5.4e-04) | edge 3.1e-03 | min dx/du win 1.00 (dom 0.10) | h_rms 0.132 m (nominal 0.133) | slope 0.152 (nominal 0.152) | skew +0.01
+full     U= 5.0 gauss  HH 80°: energy>2% in 0/1527 (m2 without them 2.42) | domain overturned in 0/1527 | energy 4.5e-04/3.5e-03 | MOMI 4.8e-03 dB (99%: 2.4e-03) | edge 1.9e-02 | min dx/du win 1.00 (dom 0.10) | h_rms 0.132 m (nominal 0.133) | slope 0.152 (nominal 0.152) | skew +0.01
+full     U= 5.0 gauss  VV 60°: energy>2% in 0/1527 (m2 without them 2.00) | domain overturned in 0/1527 | energy 6.6e-04/6.2e-03 | MOMI 5.1e-03 dB (99%: 1.5e-03) | edge 1.5e-01 | min dx/du win 1.00 (dom 0.10) | h_rms 0.132 m (nominal 0.133) | slope 0.152 (nominal 0.152) | skew +0.01
+full     U= 5.0 gauss  VV 80°: energy>2% in 2/1527 (m2 without them 2.05) | domain overturned in 0/1527 | energy 3.3e-03/2.6e-02 | MOMI 1.6e-02 dB (99%: 2.9e-03) | edge 2.0e-01 | min dx/du win 1.00 (dom 0.10) | h_rms 0.132 m (nominal 0.133) | slope 0.152 (nominal 0.152) | skew +0.01
+full     U=10.0 choppy HH 60°: energy>2% in 0/2304 (m2 without them 2.31) | domain overturned in 1/2304 | energy 4.4e-05/4.3e-03 | MOMI 5.5e-03 dB (99%: 1.4e-03) | edge 9.6e-02 | min dx/du win 0.10 (dom -0.06) | h_rms 0.506 m (nominal 0.533) | slope 0.172 (nominal 0.170) | skew +0.05
+full     U=10.0 choppy HH 80°: energy>2% in 5/2304 (m2 without them 3.60) | domain overturned in 1/2304 | energy 2.3e-03/2.3e-02 | MOMI 6.4e-02 dB (99%: 4.3e-03) | edge 2.0e-01 | min dx/du win 0.10 (dom -0.06) | h_rms 0.506 m (nominal 0.533) | slope 0.172 (nominal 0.170) | skew +0.05
+full     U=10.0 choppy VV 60°: energy>2% in 0/2304 (m2 without them 2.07) | domain overturned in 1/2304 | energy 5.8e-04/1.9e-02 | MOMI 6.1e-02 dB (99%: 2.8e-03) | edge 3.4e-01 | min dx/du win 0.10 (dom -0.06) | h_rms 0.506 m (nominal 0.533) | slope 0.172 (nominal 0.170) | skew +0.05
+full     U=10.0 choppy VV 80°: energy>2% in 40/2304 (m2 without them 2.10) | domain overturned in 1/2304 | energy 3.3e-03/3.5e-02 | MOMI 1.5e-02 dB (99%: 4.1e-03) | edge 3.8e-01 | min dx/du win 0.10 (dom -0.06) | h_rms 0.506 m (nominal 0.533) | slope 0.172 (nominal 0.170) | skew +0.05
+full     U=10.0 gauss  HH 60°: energy>2% in 0/2304 (m2 without them 2.13) | domain overturned in 1/2304 | energy 2.4e-05/3.0e-03 | MOMI 6.8e-03 dB (99%: 7.1e-04) | edge 7.8e-02 | min dx/du win 1.00 (dom -0.06) | h_rms 0.507 m (nominal 0.533) | slope 0.169 (nominal 0.170) | skew +0.00
+full     U=10.0 gauss  HH 80°: energy>2% in 7/2304 (m2 without them 2.98) | domain overturned in 1/2304 | energy 2.3e-03/2.4e-02 | MOMI 1.1e-02 dB (99%: 2.5e-03) | edge 2.3e-01 | min dx/du win 1.00 (dom -0.06) | h_rms 0.507 m (nominal 0.533) | slope 0.169 (nominal 0.170) | skew +0.00
+full     U=10.0 gauss  VV 60°: energy>2% in 0/2304 (m2 without them 2.05) | domain overturned in 1/2304 | energy 5.7e-04/1.1e-02 | MOMI 8.4e-03 dB (99%: 1.3e-03) | edge 3.2e-01 | min dx/du win 1.00 (dom -0.06) | h_rms 0.507 m (nominal 0.533) | slope 0.169 (nominal 0.170) | skew +0.00
+full     U=10.0 gauss  VV 80°: energy>2% in 39/2304 (m2 without them 2.02) | domain overturned in 1/2304 | energy 3.2e-03/3.4e-02 | MOMI 1.7e-02 dB (99%: 2.2e-03) | edge 3.2e-01 | min dx/du win 1.00 (dom -0.06) | h_rms 0.507 m (nominal 0.533) | slope 0.169 (nominal 0.170) | skew +0.00
+full     U=15.0 choppy HH 60°: energy>2% in 5/1510 (m2 without them 2.67) | domain overturned in 3/1510 | energy 6.4e-05/6.6e-02 | MOMI 2.8e-03 dB (99%: 1.2e-03) | edge 1.4e-01 | min dx/du win 0.04 (dom -0.07) | h_rms 0.989 m (nominal 1.200) | slope 0.181 (nominal 0.179) | skew +0.04
+full     U=15.0 choppy HH 80°: energy>2% in 148/1510 (m2 without them 2.98) | domain overturned in 3/1510 | energy 4.2e-03/2.9e-01 | MOMI 1.1e-02 dB (99%: 4.7e-03) | edge 6.2e-01 | min dx/du win 0.04 (dom -0.07) | h_rms 0.989 m (nominal 1.200) | slope 0.181 (nominal 0.179) | skew +0.04
+full     U=15.0 choppy VV 60°: energy>2% in 12/1510 (m2 without them 2.03) | domain overturned in 3/1510 | energy 6.3e-04/4.5e-02 | MOMI 1.2e-02 dB (99%: 2.6e-03) | edge 3.3e-01 | min dx/du win 0.04 (dom -0.07) | h_rms 0.989 m (nominal 1.200) | slope 0.181 (nominal 0.179) | skew +0.04
+full     U=15.0 choppy VV 80°: energy>2% in 128/1510 (m2 without them 2.19) | domain overturned in 3/1510 | energy 4.3e-03/1.2e-01 | MOMI 1.7e-02 dB (99%: 4.8e-03) | edge 4.9e-01 | min dx/du win 0.04 (dom -0.07) | h_rms 0.989 m (nominal 1.200) | slope 0.181 (nominal 0.179) | skew +0.04
+full     U=15.0 gauss  HH 60°: energy>2% in 3/1510 (m2 without them 2.21) | domain overturned in 3/1510 | energy 3.4e-05/6.8e-02 | MOMI 3.2e-03 dB (99%: 7.3e-04) | edge 2.5e-01 | min dx/du win 1.00 (dom -0.07) | h_rms 0.992 m (nominal 1.200) | slope 0.178 (nominal 0.179) | skew -0.02
+full     U=15.0 gauss  HH 80°: energy>2% in 141/1510 (m2 without them 3.08) | domain overturned in 3/1510 | energy 4.2e-03/2.8e-01 | MOMI 6.2e-03 dB (99%: 2.4e-03) | edge 4.4e-01 | min dx/du win 1.00 (dom -0.07) | h_rms 0.992 m (nominal 1.200) | slope 0.178 (nominal 0.179) | skew -0.02
+full     U=15.0 gauss  VV 60°: energy>2% in 14/1510 (m2 without them 2.13) | domain overturned in 3/1510 | energy 6.5e-04/7.7e-02 | MOMI 5.1e-02 dB (99%: 1.5e-03) | edge 6.5e-01 | min dx/du win 1.00 (dom -0.07) | h_rms 0.992 m (nominal 1.200) | slope 0.178 (nominal 0.179) | skew -0.02
+full     U=15.0 gauss  VV 80°: energy>2% in 133/1510 (m2 without them 2.09) | domain overturned in 3/1510 | energy 4.4e-03/1.4e-01 | MOMI 7.8e-03 dB (99%: 2.2e-03) | edge 3.2e-01 | min dx/du win 1.00 (dom -0.07) | h_rms 0.992 m (nominal 1.200) | slope 0.178 (nominal 0.179) | skew -0.02
+periodic U=15.0 gauss  HH 60°: energy>2% in 1/752 (m2 without them 2.28) | domain overturned in 0/752 | energy 3.2e-05/4.6e-02 | MOMI 3.0e-03 dB (99%: 5.9e-04) | edge 1.1e-01 | min dx/du win 1.00 (dom 0.06) | h_rms 0.883 m (nominal 0.963) | slope 0.178 (nominal 0.179) | skew -0.00
+periodic U=15.0 gauss  HH 80°: energy>2% in 44/752 (m2 without them 2.57) | domain overturned in 0/752 | energy 4.0e-03/1.1e-01 | MOMI 6.8e-02 dB (99%: 3.6e-03) | edge 2.2e-01 | min dx/du win 1.00 (dom 0.06) | h_rms 0.883 m (nominal 0.963) | slope 0.178 (nominal 0.179) | skew -0.00
+periodic U=15.0 gauss  VV 60°: energy>2% in 2/752 (m2 without them 2.03) | domain overturned in 0/752 | energy 5.6e-04/3.1e-02 | MOMI 5.5e-03 dB (99%: 1.7e-03) | edge 3.3e-01 | min dx/du win 1.00 (dom 0.06) | h_rms 0.883 m (nominal 0.963) | slope 0.178 (nominal 0.179) | skew -0.00
+periodic U=15.0 gauss  VV 80°: energy>2% in 38/752 (m2 without them 2.40) | domain overturned in 0/752 | energy 4.0e-03/4.9e-02 | MOMI 8.9e-03 dB (99%: 3.2e-03) | edge 2.9e-01 | min dx/du win 1.00 (dom 0.06) | h_rms 0.883 m (nominal 0.963) | slope 0.178 (nominal 0.179) | skew -0.00
