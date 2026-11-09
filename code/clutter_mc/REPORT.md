@@ -1,8 +1,8 @@
 # Does a choppy sea give a heavier clutter tail? Monte Carlo results
 
 2-D MFIE + MOMI (Toporkov 1998) on 1-D Pierson–Moskowitz surfaces, PEC, λ = 0.23 m, backscatter.
-Run on 2026-11-08. About 5,300 random seas, each solved as Gaussian and choppy, HH and VV, at 60° and 80°.
-That's about 41,000 scattering solutions in total. The code is in this folder, raw per-realization results are in `results/`, and the figures are in `figures/`.
+Run on 2026-11-08. 6,400 random seas (5,600 solved as both Gaussian and choppy, plus 800 Gaussian-only in the old-design arm), each at HH and VV, 60° and 80°.
+That's about 48,000 scattering solutions in total. The code is in this folder, raw per-realization results are in `results/`, and the figures are in `figures/`.
 
 ---
 
@@ -11,13 +11,13 @@ That's about 41,000 scattering solutions in total. The code is in this folder, r
 1. **Choppy surfaces raise the mean HH level, and the effect is robust.** On the same random seas, choppy is
    +0.6 to +1.8 dB above Gaussian at HH, significant in all 6 HH cases. VV moves less: +0.3 to +0.5 dB at 80°, and nothing at 60°.
 2. **Choppy surfaces do not significantly fatten the HH tail near grazing (80°).** The tail is P(σ > τ) normalized
-   by each sea's own mean. The paired difference in ⟨σ²⟩/⟨σ⟩² at 80° HH is +0.09 [−0.33, +0.45] at 5 m/s,
-   +0.62 [−0.72, +2.45] at 10 m/s, and −0.09 [−0.50, +0.33] at 15 m/s. At 60° HH there is a small, significant fattening at 10 and 15 m/s (+0.18, +0.46).
+   by each sea's own mean. The paired difference in ⟨σ²⟩/⟨σ⟩² at 80° HH is +0.09 [−0.34, +0.44] at 5 m/s,
+   +0.58 [−0.74, +2.44] at 10 m/s, and −0.11 [−0.53, +0.30] at 15 m/s. At 60° HH there is a small, significant fattening at 10 and 15 m/s (+0.18, +0.45).
    **So a clear "no significant difference" at the angle you cared most about, and a modest effect at 60°.**
 3. **The heavy HH tail near grazing is already there for the Gaussian sea, and it comes from the long waves.**
    At 80° HH, Gaussian ⟨σ²⟩/⟨σ⟩² is 2.4, 3.0 and 3.0 at 5, 10 and 15 m/s; exponential speckle gives 2. The 12 m radar patch sits on a
    long wave that tilts it toward or away from the radar, and at 10° grazing that swings the echo hard. Removing the long waves (the old
-   periodic-on-the-window design) makes this tail measurably lighter (Δm2 = +0.45 [+0.07, +0.83] at 15 m/s).
+   periodic-on-the-window design) makes this tail measurably lighter (Δm2 = +0.42 [+0.04, +0.78] at 15 m/s).
 4. **VV is close to exponential everywhere** (m2 = 2.0–2.2). Its mean is within 0.6 dB of first-order Bragg at 80° and 0.9–1.4 dB above it at 60°.
    HH sits 6–11 dB above Bragg at 80°, which is the known failure of first-order theory for HH near grazing.
 5. **The tail curves can be trusted down to P(σ > τ) ≈ 1 %**, and not to 1e-3. Below about 1 % the results also depend on a handful of
@@ -74,7 +74,7 @@ The earlier 250-realization numbers won't reproduce exactly (different seeds and
 > `sea_surface_xband.py` used `lam=+1`, the earlier "choppy" surfaces had the wrong shape.
 
 **Overturning.** No solve window ever contained an overturned crest (min dx/du in any window: 0.20, 0.10, 0.04 at 5, 10, 15 m/s).
-On the full 942 m domain, overturning occurred in 0/1527, 1/2304 and 3/1510 seas, always outside the window. So nothing was dropped and
+On the full 942 m domain, overturning occurred in 0/1600, 1/2400 and 3/1600 seas, always outside the window. So nothing was dropped and
 nothing needed to be. Overturning is a non-issue for P-M with this cutoff, for the slope reason above.
 
 ### 2.3 Validation
@@ -107,29 +107,29 @@ Figures:
 * `fig5_surfaces.png`: what the solver actually sees at each wind
 * `fig6`–`fig8`: the problem cases (section 4)
 
-### 3.1 Main table (n = 1527 / 2304 / 1510 seas at 5 / 10 / 15 m/s; 95% bootstrap CIs)
+### 3.1 Main table (n = 1600 / 2400 / 1600 seas at 5 / 10 / 15 m/s; 95% bootstrap CIs)
 
 Mean levels in dB. "Δ" = paired choppy − Gaussian. **Bold** = CI excludes 0.
 
 | U | case | Bragg | Gauss ⟨σ⁰⟩ | choppy ⟨σ⁰⟩ | Δ⟨σ⁰⟩ dB | Gauss m2 | choppy m2 | Δm2 |
 |---|---|---|---|---|---|---|---|---|
-| 5 | HH 60° | −32.1 | −30.4 | −29.7 | **+0.64** [0.35, 0.94] | 1.99 [1.89, 2.11] | 2.09 [2.00, 2.20] | +0.10 [−0.05, 0.25] |
-| 5 | HH 80° | −52.2 | −46.4 | −44.8 | **+1.60** [1.25, 1.92] | 2.42 [2.17, 2.83] | 2.51 [2.28, 2.75] | +0.09 [−0.33, 0.45] |
-| 5 | VV 60° | −15.2 | −14.3 | −14.2 | +0.15 [−0.17, 0.46] | 2.00 | 2.11 | +0.11 [−0.08, 0.32] |
-| 5 | VV 80° | −15.9 | −16.0 | −15.6 | **+0.41** [0.09, 0.73] | 2.05 | 2.03 | −0.02 [−0.17, 0.13] |
-| 10 | HH 60° | −32.1 | −29.9 | −29.1 | **+0.76** [0.50, 1.02] | 2.13 [2.03, 2.24] | 2.31 [2.18, 2.46] | **+0.18** [0.01, 0.36] |
-| 10 | HH 80° | −52.2 | −43.9 | −42.3 | **+1.56** [1.22, 1.90] | 2.98 [2.48, 3.69] | 3.60 [2.59, 5.24] | +0.62 [−0.72, 2.45] |
-| 10 | VV 60° | −15.2 | −14.0 | −13.9 | +0.02 [−0.24, 0.29] | 2.05 | 2.07 | +0.02 [−0.10, 0.14] |
-| 10 | VV 80° | −15.9 | −15.7 | −15.3 | **+0.46** [0.22, 0.70] | 2.02 | 2.11 | +0.09 [−0.04, 0.23] |
-| 15 | HH 60° | −32.1 | −29.6 | −28.6 | **+0.91** [0.57, 1.26] | 2.21 [2.06, 2.37] | 2.67 [2.32, 3.03] | **+0.46** [0.07, 0.86] |
-| 15 | HH 80° | −52.2 | −42.9 | −41.1 | **+1.79** [1.42, 2.15] | 3.04 [2.74, 3.36] | 2.95 [2.64, 3.31] | −0.09 [−0.50, 0.33] |
-| 15 | VV 60° | −15.2 | −13.8 | −13.9 | −0.06 [−0.38, 0.24] | 2.12 | 2.02 | −0.10 [−0.29, 0.08] |
-| 15 | VV 80° | −15.9 | −15.8 | −15.5 | +0.32 [0.00, 0.65] | 2.11 | 2.17 | +0.06 [−0.14, 0.24] |
+| 5 | HH 60° | −32.1 | −30.4 | −29.7 | **+0.64** [0.34, 0.94] | 1.98 [1.89, 2.09] | 2.09 [1.99, 2.19] | +0.10 [−0.04, 0.25] |
+| 5 | HH 80° | −52.2 | −46.5 | −44.9 | **+1.59** [1.28, 1.92] | 2.43 [2.18, 2.83] | 2.52 [2.31, 2.76] | +0.09 [−0.34, 0.44] |
+| 5 | VV 60° | −15.2 | −14.3 | −14.1 | +0.16 [−0.14, 0.47] | 2.00 | 2.11 | +0.11 [−0.08, 0.32] |
+| 5 | VV 80° | −15.9 | −16.0 | −15.6 | **+0.47** [0.16, 0.78] | 2.06 | 2.02 | −0.04 [−0.20, 0.11] |
+| 10 | HH 60° | −32.1 | −29.9 | −29.1 | **+0.77** [0.52, 1.03] | 2.12 [2.02, 2.23] | 2.30 [2.17, 2.45] | **+0.18** [0.01, 0.35] |
+| 10 | HH 80° | −52.2 | −43.9 | −42.4 | **+1.54** [1.23, 1.87] | 2.98 [2.50, 3.65] | 3.56 [2.60, 5.17] | +0.58 [−0.74, 2.44] |
+| 10 | VV 60° | −15.2 | −13.9 | −14.0 | −0.01 [−0.26, 0.24] | 2.05 | 2.08 | +0.03 [−0.09, 0.14] |
+| 10 | VV 80° | −15.9 | −15.7 | −15.3 | **+0.38** [0.14, 0.62] | 2.04 | 2.11 | +0.07 [−0.07, 0.21] |
+| 15 | HH 60° | −32.1 | −29.6 | −28.7 | **+0.91** [0.57, 1.25] | 2.20 [2.06, 2.37] | 2.65 [2.32, 3.02] | **+0.45** [0.07, 0.84] |
+| 15 | HH 80° | −52.2 | −42.9 | −41.1 | **+1.83** [1.47, 2.18] | 3.01 [2.72, 3.33] | 2.90 [2.60, 3.25] | −0.11 [−0.53, 0.30] |
+| 15 | VV 60° | −15.2 | −13.8 | −13.9 | −0.04 [−0.34, 0.28] | 2.14 | 2.01 | −0.13 [−0.32, 0.05] |
+| 15 | VV 80° | −15.9 | −15.8 | −15.5 | +0.31 [−0.02, 0.62] | 2.11 | 2.16 | +0.05 [−0.15, 0.23] |
 
 Bragg: ⟨σ⁰_HH⟩ = (πα/4)cos⁴θ/sin³θ, ⟨σ⁰_VV⟩ = (πα/4)(1+sin²θ)²/sin³θ, α = 8.1e-3.
 
-Old design (15 m/s, surface periodic on the 101 m window, n = 752, Gaussian): HH 80° m2 = 2.59 [2.36, 2.82] vs 3.04 with long waves,
-**Δ = +0.45 [+0.07, +0.83]**. Mean levels are unchanged (+0.31 [−0.21, +0.81] dB). Other cases show no significant difference.
+Old design (15 m/s, surface periodic on the 101 m window, n = 800, Gaussian): HH 80° m2 = 2.59 [2.38, 2.82] vs 3.01 with long waves,
+**Δ = +0.42 [+0.04, +0.78]**. Mean levels are unchanged (+0.20 [−0.27, +0.70] dB). Other cases show no significant difference.
 
 ### 3.2 Plain-language interpretation
 
@@ -149,7 +149,7 @@ Old design (15 m/s, surface periodic on the 101 m window, n = 752, Gaussian): HH
 
 ### 3.3 How far down can P(σ > τ) be trusted?
 
-The per-case "trust floor" (the smallest P whose 95% CI is within a factor of about 1.5) is **P ≈ 0.7–1.6 %**, roughly 10/n. At HH 80°
+The per-case "trust floor" (the smallest P whose 95% CI is within a factor of about 1.5) is **P ≈ 0.6–1.4 %**, roughly 10/n. At HH 80°
 that corresponds to τ ≈ 7–8 ⟨σ⟩. Below that, the curves in fig 1 and 2 are drawn, but their bands are wide and any ratio there is
 noise (the "P(>10⟨σ⟩)" columns in `results/summary.txt` are mostly undefined). Reaching P ≈ 1e-3 with a ±50 % CI would need about 10⁴ seas per case
 (≈ 5 GPU-hours per wind on this machine at λ/20, ~20 at λ/40), or importance sampling.
@@ -159,7 +159,7 @@ noise (the "P(>10⟨σ⟩)" columns in `results/summary.txt` are mostly undefine
 ## 4. Problems found, what I did about them, and what is still open
 
 1. **MOMI diverged once** (seed 689, 10 m/s, choppy HH): iterations 2 and 3 differed by 4–13 dB, and energy came out at 1.054.
-   It was 1 solve out of about 41,000. Every other MOMI 2→3 change was ≤ 0.07 dB. That realization was re-solved with a dense direct solve
+   It was 1 solve out of about 48,000. Every other MOMI 2→3 change was ≤ 0.07 dB. That realization was re-solved with a dense direct solve
    (`fixup.py`), and `analyze.py` logs the substitution.
 2. **Under-resolved choppy crests are the real issue (figs 6, 7).** The divergence above came from a near-cusp, a crest radius of
    **1.8 mm** sampled at 11.5 mm. It sits **30 m outside the footprint**, where the current is about 1 % of its peak, and it still changed HH-80°
@@ -170,10 +170,10 @@ noise (the "P(>10⟨σ⟩)" columns in `results/summary.txt` are mostly undefine
    * **Top-8 HH spikes per case:** most move by < 1.5 dB, but 7 of the 48 records (4 distinct seas) move by 4–49 dB, one of them *up* (seed 1305: +4.7 dB, to 31 × the mean).
      All λ/40 values (656 records) are substituted into the final numbers.
    * **Still open:** whether λ/40 is converged for the sharpest crests. κ·dx is still up to about 2.6 there, and λ/80 (N = 35,200) doesn't fit
-     in 8 GB of GPU memory. The 10 m/s choppy HH-80° m2 (3.60) leans on seed 1305; with its λ/20 value it is 3.06. **Treat that cell as unresolved.**
+     in 8 GB of GPU memory. The 10 m/s choppy HH-80° m2 (3.56) leans on seed 1305; with its λ/20 value it is 3.03. **Treat that cell as unresolved.**
 3. **About 10 % of seas at 15 m/s, 80° fail the energy check by more than 2 %** (fig 8). The failures track footprint *tilt*:
    when the long wave slopes away from the radar by more than about 5°, the specular lobe rotates past 90° and leaves the angular range the check
-   integrates over. So mostly the check is mis-reading geometry, not catching a solver error. Excluding these seas leaves m2 unchanged (3.04 → 3.08).
+   integrates over. So mostly the check is mis-reading geometry, not catching a solver error. Excluding these seas leaves m2 unchanged (3.01 → 3.05).
    *Not verified:* those patches sit at about 4° local grazing, where Kapp's criterion for the local angle would need a much larger g, so their
    (weak) backscatter values are less certain. They are in the bulk, not the tail.
 4. **VV current at the window edge** reaches 10–50 % of the peak in some seas at 10–15 m/s. Energy still balances to < 0.5 % in the median,
@@ -181,8 +181,7 @@ noise (the "P(>10⟨σ⟩)" columns in `results/summary.txt` are mostly undefine
 5. **Multiple comparisons.** The table has 24 paired tests, so about 1 "significant" result is expected by chance at 95 %. The two significant
    Δm2 values at HH 60° (10 and 15 m/s) are consistent in sign and grow with wind, which argues against chance, but neither is strong.
 6. **Small MOMI residuals** (13 records with 0.01–0.07 dB between iterations 2 and 3) were left as they were. They are far below the statistical noise.
-7. **CPU worker shards** were still running when this snapshot was taken (they hold about 6 % of the seeds). Re-running `analyze.py` later
-   will include them; the numbers will move within their CIs.
+7. All 9 production shards completed; the numbers above use the complete dataset.
 
 ## 5. What I'd do next
 

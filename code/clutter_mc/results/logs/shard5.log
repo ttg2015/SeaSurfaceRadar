@@ -6,3 +6,6 @@ shard 5/9: 176 realizations, backend=cpu, dx=lambda/20
 [shard 5] 100/176  134.4 min, ETA 102.2 min (last 87.0s)
 [shard 5] 120/176  158.7 min, ETA 74.1 min (last 76.4s)
 [shard 5] 140/176  181.5 min, ETA 46.7 min (last 70.5s)
+[shard 5] 160/176  203.4 min, ETA 20.3 min (last 35.1s)
+[shard 5] 176/176  220.5 min, ETA 0.0 min (last 33.6s)
+[shard 5] done
