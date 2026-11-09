@@ -116,16 +116,16 @@ def fname(arm, U):
 
 
 def done_seeds(arm, U):
-    p = fname(arm, U)
-    if not os.path.exists(p):
-        return set()
+    """Seeds already solved by ANY shard (so the shard layout can change between runs)."""
+    import glob as _glob
     s = set()
-    with open(p) as f:
-        for line in f:
-            try:
-                s.add(json.loads(line)["seed"])
-            except Exception:
-                pass  # a partially written last line from an interruption
+    for p in _glob.glob(os.path.join(OUT, f"{arm}_U{U:g}_dx{DX_DIV}_s*.jsonl")):
+        with open(p) as f:
+            for line in f:
+                try:
+                    s.add(json.loads(line)["seed"])
+                except Exception:
+                    pass  # a partially written last line from an interruption
     return s
 
 
@@ -133,6 +133,8 @@ PLANS = {
     # (U, arm, n_seeds) in blocks, so every case grows together and partial results are usable
     "main": [(10.0, "full", 2400), (5.0, "full", 1600), (15.0, "full", 1600), (15.0, "periodic", 800)],
     "quick": [(10.0, "full", 32)],
+    # tail sweep: 10,000 seas per wind (P ~ 1e-3 with ~+-50 % CI)
+    "big": [(10.0, "full", 10000), (5.0, "full", 10000), (15.0, "full", 10000)],
 }
 
 
@@ -168,7 +170,26 @@ if __name__ == "__main__":
     print(f"shard {SHARD}/{NSHARDS}: {len(tasks)} realizations, backend={BACKEND}, dx=lambda/{DX_DIV}", flush=True)
     files = {}
     t0 = time.time()
+    paused = 0.0
+    STOP, PAUSE = os.path.join(OUT, "STOP"), os.path.join(OUT, "PAUSE")
     for n, (U, seed, arm) in enumerate(tasks, 1):
+        # control files, checked between realizations (see sweep.sh): STOP = exit cleanly, PAUSE = hold
+        if os.path.exists(STOP):
+            print(f"[shard {SHARD}] STOP file found: exiting cleanly after {n-1} realizations", flush=True)
+            break
+        if os.path.exists(PAUSE):
+            print(f"[shard {SHARD}] paused", flush=True)
+            tp = time.time()
+            if BACKEND == "gpu":
+                import gpusolve as _GS
+                _GS.torch.cuda.empty_cache()
+            while os.path.exists(PAUSE) and not os.path.exists(STOP):
+                time.sleep(5)
+            paused += time.time() - tp
+            if os.path.exists(STOP):
+                print(f"[shard {SHARD}] STOP file found while paused: exiting", flush=True)
+                break
+            print(f"[shard {SHARD}] resumed", flush=True)
         _, recs, dt = _task((U, seed, arm))
         key = (arm, U)
         if key not in files:
@@ -177,9 +198,10 @@ if __name__ == "__main__":
             files[key].write(json.dumps(r) + "\n")
         files[key].flush()
         if n % 20 == 0 or n == len(tasks):
-            el = time.time() - t0
+            el = time.time() - t0 - paused
             print(f"[shard {SHARD}] {n}/{len(tasks)}  {el/60:.1f} min, ETA {el/n*(len(tasks)-n)/60:.1f} min "
                   f"(last {dt:.1f}s)", flush=True)
     for f in files.values():
         f.close()
-    print(f"[shard {SHARD}] done", flush=True)
+    else:
+        print(f"[shard {SHARD}] done", flush=True)
