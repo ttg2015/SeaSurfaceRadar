@@ -63,7 +63,17 @@ class Sea:
         return self._cache[key]
 
     # ------------------------------------------------------------------------------------
-    def window(self, N, dx, choppy, newton_tol=1e-11):
+    def at_time(self, t, toward_radar=True):
+        """The same sea t seconds later (linear dispersion, gravity-capillary: w^2 = gK + (T/rho) K^3).
+        toward_radar=True makes the waves travel toward -x, i.e. toward the radar (upwind look)."""
+        new = object.__new__(Sea)
+        new.__dict__.update(self.__dict__)
+        w = np.sqrt(9.81 * self.K + 7.4e-5 * self.K**3)
+        new.c = self.c * np.exp((1j if toward_radar else -1j) * w * t)
+        new._cache = {}
+        return new
+
+    def window(self, N, dx, choppy, newton_tol=1e-11, demean=True):
         """Surface on x_m = (m - N/2) dx. Returns dict with x, z, zx, zxx and diagnostics.
         z has its window mean removed (a vertical shift: keeps the tapered footprint centred
         on the window; statistically harmless because the surface is stationary)."""
@@ -102,7 +112,8 @@ class Sea:
             inwin = (uu > u[0]) & (uu < u[-1])
             jac_min_win = float(jac[inwin].min())
         jac_all = 1 + self._grid("D", 1)
-        z = z - z.mean()
+        if demean:
+            z = z - z.mean()
         return dict(x=x, z=z, zx=zx, zxx=zxx,
                     jac_min_window=jac_min_win,          # min dx/du inside the window
                     jac_min_domain=float(jac_all.min()),  # min dx/du on the whole L_gen

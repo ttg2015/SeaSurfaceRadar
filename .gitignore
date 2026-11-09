@@ -13,3 +13,6 @@ scratch/
 # Third-party papers and teammates' drafts: keep local
 papers/
 drafts/
+
+# Animation frames (regenerable with code/clutter_mc/animate.py)
+code/clutter_mc/figures/anim_frames/
