@@ -163,3 +163,43 @@ U=5.0 seed=1063 (spike) done
 U=5.0 seed=161 (spike) done
 U=5.0 seed=1351 (spike) done
 U=5.0 seed=478 (spike) done
+Traceback (most recent call last):
+  File "C:\Users\btgre\Claudes_Dream_House\projects\Radar_Project\SeaSurfaceRadar\code\clutter_mc\lambda40_study.py", line 28, in <module>
+    todo += [(U, int(q), "spike") for q in seeds[np.argsort(-s)[:8]]]
+                                                            ^^
+TypeError: bad operand type for unary -: 'NoneType'
+47 choppy realizations, 164 already done
+U=10.0 seed=4183 (spike) done
+U=10.0 seed=2998 (spike) done
+U=10.0 seed=8779 (spike) done
+U=10.0 seed=7977 (spike) done
+U=10.0 seed=8575 (spike) done
+U=10.0 seed=7468 (spike) done
+U=10.0 seed=9165 (spike) done
+U=15.0 seed=6680 (spike) done
+U=15.0 seed=9473 (spike) done
+U=15.0 seed=6105 (spike) done
+U=15.0 seed=6919 (spike) done
+U=15.0 seed=8468 (spike) done
+U=15.0 seed=3891 (spike) done
+U=15.0 seed=5755 (spike) done
+U=15.0 seed=4717 (spike) done
+U=15.0 seed=1922 (spike) done
+U=15.0 seed=2500 (spike) done
+U=15.0 seed=6572 (spike) done
+U=15.0 seed=9479 (spike) done
+U=5.0 seed=8276 (spike) done
+U=5.0 seed=7048 (spike) done
+U=5.0 seed=4539 (spike) done
+U=5.0 seed=5087 (spike) done
+U=5.0 seed=9602 (spike) done
+U=5.0 seed=7083 (spike) done
+U=5.0 seed=6770 (spike) done
+U=5.0 seed=6781 (spike) done
+U=5.0 seed=4079 (spike) done
+U=5.0 seed=8343 (spike) done
+U=5.0 seed=7770 (spike) done
+U=5.0 seed=6914 (spike) done
+U=5.0 seed=2995 (spike) done
+U=5.0 seed=5412 (spike) done
+U=5.0 seed=6473 (spike) done

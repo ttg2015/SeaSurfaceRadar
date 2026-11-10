@@ -1,0 +1,19 @@
+480 frames
+Bragg Doppler 3.70 Hz; whole-record peaks HH +9.59 Hz, VV -0.50 Hz
+lambda/20 vs lambda/40 backscatter: HH median |d| 0.12 dB, max 7.63 dB, VV median |d| 0.03 dB, max 3.40 dB
+rendered 40/480
+rendered 80/480
+rendered 120/480
+rendered 160/480
+rendered 200/480
+rendered 240/480
+rendered 280/480
+rendered 320/480
+rendered 360/480
+rendered 400/480
+rendered 440/480
+rendered 480/480
+scattered_field.webp: 480 frames, 24.7 MB
+scattered_field.gif: 480 frames, 44.0 MB
+radar_dashboard.webp: 480 frames, 25.1 MB
+radar_dashboard.gif: 480 frames, 18.9 MB

@@ -17,7 +17,7 @@ for p in glob.glob(os.path.join(R.OUT, "full_U*_dx20_s*.jsonl")):
     for line in open(p):
         try: r = json.loads(line)
         except Exception: continue
-        if r["surf"] == "choppy":
+        if r["surf"] == "choppy" and r["sigma"] is not None:   # skip failed solves
             data.setdefault((r["U"], r["pol"], r["theta"]), {})[r["seed"]] = r["sigma"]
 
 todo = []

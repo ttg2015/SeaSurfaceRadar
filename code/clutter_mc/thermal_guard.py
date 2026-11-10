@@ -34,11 +34,20 @@ FIELDS = ["time", "gpu_C", "gpu_margin_C", "gpu_slowdown", "gpu_W", "gpu_fan", "
           "cpu_perf_pct", "cpu_load_pct", "action"]
 
 
+NAN = float("nan")
+GPU_NAN = dict(gpu_C=NAN, gpu_margin_C=NAN, gpu_slowdown=0, gpu_W=NAN, gpu_fan=NAN, gpu_util=NAN)
+CPU_NAN = dict(cpu_zone_C=NAN, cpu_perf_pct=NAN, cpu_load_pct=NAN)
+BLIND_PAUSE = 40   # consecutive samples (10 min) with no GPU reading -> pause: never run unwatched
+
+
 def gpu():
     q = ("temperature.gpu,temperature.gpu.tlimit,clocks_event_reasons.hw_thermal_slowdown,"
          "clocks_event_reasons.sw_thermal_slowdown,power.draw,fan.speed,utilization.gpu")
-    out = subprocess.run(["nvidia-smi", f"--query-gpu={q}", "--format=csv,noheader,nounits"],
-                         capture_output=True, text=True, timeout=20).stdout.strip().split(", ")
+    p = subprocess.run(["nvidia-smi", f"--query-gpu={q}", "--format=csv,noheader,nounits"],
+                       capture_output=True, text=True, timeout=20)
+    out = p.stdout.strip().split(", ")
+    if len(out) < 7:
+        raise RuntimeError(f"nvidia-smi rc={p.returncode} out={p.stdout.strip()[:120]!r} err={p.stderr.strip()[:120]!r}")
     f = lambda s: float(s) if s.replace(".", "", 1).isdigit() else float("nan")
     return dict(gpu_C=f(out[0]), gpu_margin_C=f(out[1]),
                 gpu_slowdown=int(out[2].strip() == "Active" or out[3].strip() == "Active"),
@@ -51,7 +60,10 @@ def cpu():
           "$l=(Get-Counter '\\Processor(_Total)\\% Processor Time').CounterSamples[0].CookedValue;"
           "\"$($z.Maximum) $p $l\"")
     out = subprocess.run(["powershell", "-NoProfile", "-Command", ps], capture_output=True, text=True, timeout=30)
-    z, p, l = (float(v) for v in out.stdout.split())
+    v = out.stdout.split()
+    if len(v) != 3:
+        raise RuntimeError(f"counters out={out.stdout.strip()[:120]!r} err={out.stderr.strip()[:160]!r}")
+    z, p, l = (float(x) for x in v)
     return dict(cpu_zone_C=z - 273.15, cpu_perf_pct=p, cpu_load_pct=l)
 
 
@@ -90,15 +102,26 @@ def main():
     w = csv.DictWriter(f, FIELDS)
     if new:
         w.writeheader()
-    hot, ok_since, last_plot = 0, None, 0
+    hot, ok_since, last_plot, blind, last_err = 0, None, 0, 0, {}
     while True:
-        try:
-            s = {**gpu(), **cpu()}
-        except Exception as e:  # a failed read never stops the sweep, but is logged
-            print("sensor read failed:", e, flush=True)
-            time.sleep(15)
-            continue
+        # each sensor on its own: one failing source must not blind the others (it did, 9 Nov 14:51)
+        s = {}
+        for name, fn, fallback in (("gpu", gpu, GPU_NAN), ("cpu", cpu, CPU_NAN)):
+            try:
+                s.update(fn())
+            except Exception as e:
+                s.update(fallback)
+                msg = f"{type(e).__name__}: {e}"
+                if last_err.get(name) != msg:   # print each new kind of failure once, not every 15 s
+                    print(datetime.datetime.now().strftime("%H:%M:%S"), f"{name} read failed:", msg, flush=True)
+                last_err[name] = msg
+            else:
+                last_err.pop(name, None)
+        blind = blind + 1 if s["gpu_C"] != s["gpu_C"] else 0
         action = ""
+        if blind >= BLIND_PAUSE and not os.path.exists(PAUSE) and not os.path.exists(STOP):
+            open(PAUSE, "w").write("thermal"); action = "pause: GPU sensor blind 10 min"
+            print(datetime.datetime.now().strftime("%H:%M:%S"), action, flush=True)
         stop = s["gpu_C"] >= G_STOP or s["gpu_margin_C"] <= M_STOP or s["cpu_zone_C"] >= C_STOP
         pause = (s["gpu_C"] >= G_PAUSE or s["gpu_margin_C"] <= M_PAUSE or (G_SLOW and s["gpu_slowdown"])
                  or s["cpu_zone_C"] >= C_PAUSE or (s["cpu_perf_pct"] < PERF_MIN and s["cpu_load_pct"] > 80))
